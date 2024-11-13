@@ -11,6 +11,9 @@ import { connectDB } from "./lib/db.js";
 import { clerkMiddleware } from "@clerk/express";
 import fileUpload from "express-fileupload";
 
+// Get the directory name from import.meta.url
+const __dirname = path.dirname(new URL(import.meta.url).pathname);
+
 dotenv.config();
 
 const app = express();
@@ -37,14 +40,12 @@ app.use("/api/songs", songRouters);
 
 // error handler
 app.use((err, req, res, next) => {
-  res
-    .status(500)
-    .json({
-      message:
-        process.env.NODE_ENV === "development"
-          ? err.message
-          : "Internal server error",
-    });
+  res.status(500).json({
+    message:
+      process.env.NODE_ENV === "development"
+        ? err.message
+        : "Internal server error",
+  });
 });
 
 app.listen(PORT, () => {

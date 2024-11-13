@@ -3,6 +3,7 @@ import { id, firstName, lastName } from "@clerk/express";
 
 const router = Router();
 
-router.get("/callback", (req, res) => {});
+router.get("/", getAllAlbums);
+router.get("/:alBumId", getAlbumsById);
 
 export default router;
